@@ -49,8 +49,8 @@ namespace _5stProject
 
         public void PrintCumputerCards()
         {
-            Console.WriteLine("컴퓨터의 카드 : {0}", computerCards[0]);
-            Console.WriteLine("컴퓨터의 카드 : {0}\n", computerCards[1]);
+            Console.WriteLine("컴퓨터의 카드 : {0}", cardNumbers[computerCards[0]]);
+            Console.WriteLine("컴퓨터의 카드 : {0}\n", cardNumbers[computerCards[1]]);
             Console.WriteLine("배팅하시겠습니까 ? (y / n)");
 
             bool runWhile = true;
@@ -97,7 +97,7 @@ namespace _5stProject
 
         public void PrintPlayerCards()
         {
-            Console.WriteLine("플레이어의 카드 : {0}", playerCards[0]);
+            Console.WriteLine("플레이어의 카드 : {0}", cardNumbers[playerCards[0]]);
 
             CheckNumbers();
         }
@@ -111,10 +111,6 @@ namespace _5stProject
 
                 Console.WriteLine("당신은 승리했습니다.");
                 Console.WriteLine("획득한 점수 (+{0})\n", betPoints * 2);
-
-                betPoints = 0;
-
-                Start();
             }
             else
             {
@@ -122,12 +118,11 @@ namespace _5stProject
 
                 Console.WriteLine("당신은 패배했습니다.");
                 Console.WriteLine("잃은 점수 (-{0})\n", betPoints);
-
-                betPoints = 0;
-
-                Start();
             }
 
+            Start();
+
+            betPoints = 0;
         }
 
         public void CheckPoints()
@@ -136,6 +131,10 @@ namespace _5stProject
             if (playerPoints < 10)
             {
                 Console.WriteLine("보유 점수가 10점 미만이 되어 당신은 패배했습니다.");
+            }
+            else if (playerPoints < 1000)
+            {
+                Console.WriteLine("보유 점수가 1000점을 초과하여 당신은 승리했습니다.");
             }
             else
             {
