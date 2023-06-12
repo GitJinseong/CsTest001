@@ -26,8 +26,8 @@ namespace _10stProject
 
     public class SecretCode
     {
-        int secretNumber;
-        int wrongCount = 1;
+        private int secretNumber;
+        private int wrongCount = 1;
 
         public void CreateSecretCode()
         {
@@ -78,7 +78,6 @@ namespace _10stProject
             {
                 Console.WriteLine("{0}번 만에, 비밀 코드를 맞추셨습니다.", wrongCount);
                 Console.WriteLine("비밀 코드는 {0} 이었습니다.\n", secretNumber);
-                inputValue = 0;
                 runWhile = false;
             }
             else if (inputValue < secretNumber)
