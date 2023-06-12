@@ -67,7 +67,6 @@ namespace _10stProject
 
         public void CheckValue(int inputValue, out bool runWhile)
         {
-            runWhile = true;
 
             if (inputValue > secretNumber)
             {
@@ -86,7 +85,7 @@ namespace _10stProject
                 wrongCount++;
             }
 
-            return;
+            runWhile = true;
         }
 
         public void Play()
