@@ -26,9 +26,11 @@ namespace _10stProject
 
     public class SecretCode
     {
+        // 변수 선언
         private int secretNumber;
         private int wrongCount = 1;
 
+        // 비밀 코드 생성
         public void CreateSecretCode()
         {
             Random random = new Random();
@@ -54,6 +56,7 @@ namespace _10stProject
             }
         }
 
+        // 값 입력
         public int InputValue()
         {
             Console.WriteLine("숫자를 입력해 맞추시오.(0~127)");
@@ -65,6 +68,7 @@ namespace _10stProject
             return inputValue;
         }
 
+        // 값 체크
         public void CheckValue(int inputValue, out bool runWhile)
         {
 
@@ -88,6 +92,7 @@ namespace _10stProject
             runWhile = true;
         }
 
+        // 시작
         public void Play()
         {
             CreateSecretCode();
