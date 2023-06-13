@@ -68,15 +68,8 @@ namespace _12stProject
             {
                 playerScore++;
                 moveCount = 0;
-                SpawnCoin();
+                CreateCoin();
             }
-        }
-
-        public void SpawnCoin()
-        {
-            Random random = new Random();
-            coinLocation[0] = random.Next(0, mapSize);
-            coinLocation[1] = random.Next(0, mapSize);
         }
 
         public void MoveToUp()
@@ -169,6 +162,13 @@ namespace _12stProject
 
         }
 
+        public void CreateCoin()
+        {
+            Random random = new Random();
+            coinLocation[0] = random.Next(0, mapSize);
+            coinLocation[1] = random.Next(0, mapSize);
+        }
+
         public void CreateMap()
         {
 
@@ -198,6 +198,7 @@ namespace _12stProject
             this.playerLocation = new int[2] {x, y};
             mapArray = new string[mapSize, mapSize];
             coinLocation = new int[2];
+            Console.ForegroundColor = ConsoleColor.Green;
         }
 
         public void Start()
@@ -213,7 +214,7 @@ namespace _12stProject
 
                 if (moveCount == 4)
                 {
-                    SpawnCoin();
+                    CreateCoin();
                     moveCount = 0;
                 }
 
