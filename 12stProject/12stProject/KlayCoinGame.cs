@@ -29,6 +29,7 @@ namespace _12stProject
 {
     public class KlayCoinGame
     {
+        // _getch() 생성
         [DllImport("msvcrt")]
         static extern char _getch();
 
