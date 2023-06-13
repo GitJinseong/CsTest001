@@ -32,19 +32,25 @@ namespace _12stProject
 
             KlayCoinGame game = new KlayCoinGame();
 
-            Console.WriteLine("게임 사이즈를 입력해주세요.(5~15)");
-            Console.Write(" : ");
-
-            int.TryParse(Console.ReadLine(), out inputValue);
-
-            if (inputValue == 0)
+            while (true)
             {
-                Console.WriteLine("ERROR!");
-            }
-            else
-            {
-                game.Initialize(inputValue, 3, 3);
-                game.Start();
+                Console.Clear();
+                Console.WriteLine("게임 사이즈를 입력해주세요.(5~15)");
+                Console.Write(" : ");
+
+                int.TryParse(Console.ReadLine(), out inputValue);
+
+                if (inputValue == 0 || (5 > inputValue && inputValue < 16))
+                {
+                    Console.WriteLine("ERROR! 다시 입력해주세요!!!");
+                    Task.Delay(1000).Wait();
+                }
+                else
+                {
+                    game.Initialize(inputValue, 20, 3, 3);
+                    game.Start();
+                }
+
             }
 
         }

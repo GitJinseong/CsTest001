@@ -34,10 +34,12 @@ namespace _12stProject
         static extern char _getch();
 
         int mapSize;
+        int rockNum;
         int playerScore;
         int moveCount;
         int[] playerLocation;
         int[] coinLocation;
+        int[,] rockLocation;
         string[,] mapArray;
 
         public void Victory()
@@ -64,40 +66,133 @@ namespace _12stProject
 
         public void CheckCoin()
         {
+
             if ((coinLocation[0] == playerLocation[0]) && (playerLocation[1] == coinLocation[1]))
             {
                 playerScore++;
                 moveCount = 0;
+
                 CreateCoin();
             }
+
+        }
+
+        public int CheckMoveRock(int x, int y)
+        {
+            for (int i = 0; i < rockNum; i++)
+            {
+
+                if (x == rockLocation[i, 1] && rockLocation[i, 0] == y)
+                {
+                    return 0;
+                }
+
+            }
+
+            return 1;
+        }
+
+        public int CheckRock(string direction)
+        {
+
+            for (int i = 0; i < rockNum; i++)
+            {
+
+                if ((rockLocation[i, 0] == playerLocation[0]) && (playerLocation[1] == rockLocation[i, 1]))
+                {
+                    MoveRock(direction, i);
+
+                    return 1;
+                }
+
+            }
+
+            return 0;
+        }
+
+        public void MoveRock(string direction, int num)
+        {
+            int x = rockLocation[num, 1];
+            int y = rockLocation[num, 0];
+
+            for (int i = 0; i < rockNum; i++)
+            {
+
+            }
+
+            switch (direction)
+            {
+                case "w":
+                    if (CheckMoveRock(x, y - 1) == 1)
+                    {
+                        rockLocation[num, 0] = y < 1 ? y : y - 1;
+                    }
+                    break;
+
+                case "s":
+                    if (CheckMoveRock(x, y + 1) == 1)
+                    {
+                        rockLocation[num, 0] = y < mapSize - 1 ? y + 1 : y;
+                    }
+                    break;
+
+                case "a":
+                    if (CheckMoveRock(x - 1, y) == 1)
+                    {
+                        rockLocation[num, 1] = x < 1 ? x : x - 1;
+                    }
+                    break;
+
+                case "d":
+                    if (CheckMoveRock(x + 1, y) == 1)
+                    {
+                        rockLocation[num, 1] = x < mapSize - 1 ? x + 1 : x;
+                    }
+                    break;        
+            }
+
         }
 
         public void MoveToUp()
         {
-            int y = playerLocation[0];
 
-            playerLocation[0] = y < 1 ? y : y - 1;
+            if (CheckRock("w") == 0)
+            {
+                int y = playerLocation[0];
+
+                playerLocation[0] = y < 1 ? y : y - 1;
+            }
+            
         }
 
         public void MoveToDown()
         {
-            int y = playerLocation[0];
+            if (CheckRock("s") == 0)
+            {
+                int y = playerLocation[0];
 
-            playerLocation[0] = y < mapSize - 1 ? y + 1 : y;
+                playerLocation[0] = y < mapSize - 1 ? y + 1 : y;
+            }
         }
 
         public void MoveToLeft()
         {
-            int x = playerLocation[1];
+            if (CheckRock("a") == 0)
+            {
+                int x = playerLocation[1];
 
-            playerLocation[1] = x < 1 ? x : x - 1;
+                playerLocation[1] = x < 1 ? x : x - 1;
+            }
         }
 
         public void MoveToRight()
         {
-            int x = playerLocation[1];
+            if (CheckRock("d") == 0)
+            {
+                int x = playerLocation[1];
 
-            playerLocation[1] = x < mapSize - 1 ? x + 1: x;
+                playerLocation[1] = x < mapSize - 1 ? x + 1 : x;
+            }
         }
 
         public void InputKey()
@@ -157,7 +252,19 @@ namespace _12stProject
                     Console.Write(mapArray[i, j]);
                 }
 
-                Console.WriteLine("\n");
+                Console.WriteLine();
+            }
+
+        }
+
+        public void CreateRock()
+        {
+            Random random = new Random();
+
+            for (int i = 0; i < rockNum; i++)
+            {
+                rockLocation[i, 0] = random.Next(0, mapSize);
+                rockLocation[i, 1] = random.Next(0, mapSize);
             }
 
         }
@@ -178,32 +285,43 @@ namespace _12stProject
                 {
                     if (i == playerLocation[0] && playerLocation[1] == j)
                     {
-                        mapArray[i, j] = " ◆ ";
+                        mapArray[i, j] = "◆";
                         continue;
                     }
                     if (i == coinLocation[0] && coinLocation[1] == j)
                     {
-                        mapArray[i, j] = " ㉭ ";
+                        mapArray[i, j] = "㉭";
                         continue;
-                    }    
-                    mapArray[i, j] = " □ ";
+                    }
+
+                    mapArray[i, j] = "□";
                 }
+
+            }
+
+            for (int i = 0; i < rockNum; i++)
+            {
+                mapArray[rockLocation[i, 0], rockLocation[i, 1]] = "▩";
             }
 
         }
 
-        public void Initialize(int mapSize, int x, int y)
+        public void Initialize(int mapSize, int rockNum, int x, int y)
         {
             this.mapSize = mapSize;
+            this.rockNum = rockNum;
             this.playerLocation = new int[2] {x, y};
             mapArray = new string[mapSize, mapSize];
             coinLocation = new int[2];
+            rockLocation = new int[rockNum,2];
             Console.ForegroundColor = ConsoleColor.Green;
         }
 
         public void Start()
         {
             bool runWhile = true;
+
+            CreateRock();
 
             while (runWhile)
             {
