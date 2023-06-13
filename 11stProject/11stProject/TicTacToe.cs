@@ -20,6 +20,7 @@ namespace _11stProject
         string[] mapArray;
         string playerPattern;
         string computerPattern;
+        string blankPattern;
 
         public void CreateMap()
         {
@@ -27,7 +28,7 @@ namespace _11stProject
             
             for (int i = 0; i < mapArray.Length; i++)
             {
-                mapArray[i] = "□";
+                mapArray[i] = blankPattern;
             }
 
         }
@@ -52,7 +53,7 @@ namespace _11stProject
         {
             playerTurn = boolValue;
 
-            if (mapArray[inputValue - 1] == "□")
+            if (mapArray[inputValue - 1] == blankPattern)
             {
                 mapArray[inputValue - 1] = pattern;
                 playerTurn = !boolValue;
@@ -60,6 +61,7 @@ namespace _11stProject
             else
             {
                 Console.WriteLine("해당 위치는 선택하실 수 없습니다.");
+                Task.Delay(1000).Wait();
             }
 
         }
@@ -96,11 +98,11 @@ namespace _11stProject
 
                 for (int j = 0; j < 3; j++)
                 {
-                    if ((mapArray[bingoArray[i,j]] != "□") && (mapArray[bingoArray[i, j]] != computerPattern))
+                    if ((mapArray[bingoArray[i,j]] != blankPattern) && (mapArray[bingoArray[i, j]] != computerPattern))
                     {
                         count++;
                     }
-                    else if ((mapArray[bingoArray[i, j]] != "□") && (mapArray[bingoArray[i, j]] != playerPattern))
+                    else if ((mapArray[bingoArray[i, j]] != blankPattern) && (mapArray[bingoArray[i, j]] != playerPattern))
                     {
                         count--;
                     }
@@ -138,10 +140,11 @@ namespace _11stProject
             Task.Delay(1000000000).Wait();
         }
 
-        public void Initialize(string playerPattern, string computerPattern)
+        public void Initialize(string playerPattern, string computerPattern, string blankPattern)
         {
             this.playerPattern = playerPattern;
             this.computerPattern = computerPattern;
+            this.blankPattern = blankPattern;
         }
 
         public void Start()

@@ -20,7 +20,7 @@ namespace _11stProject
         {
             TicTacToe Game = new TicTacToe();
 
-            Game.Initialize("●", "★");
+            Game.Initialize("●", "★", "□");
             Game.Start();
         }
     }
