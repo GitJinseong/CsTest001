@@ -22,6 +22,8 @@ namespace _11stProject
         string computerPattern;
         string blankPattern;
 
+        bool firstRun = true;
+
         public void CreateMap()
         {
             mapArray = new string[9];
@@ -58,7 +60,7 @@ namespace _11stProject
                 mapArray[inputValue - 1] = pattern;
                 playerTurn = !boolValue;
             }
-            else
+            else if (playerTurn)
             {
                 Console.WriteLine("해당 위치는 선택하실 수 없습니다.");
                 Task.Delay(1000).Wait();
@@ -80,6 +82,65 @@ namespace _11stProject
             }
 
             return inputValue;
+        }
+
+
+        public void ComputerAI(bool boolValue, out bool playerTurn)
+        {
+            playerTurn = boolValue;
+
+            int[] array_A = new int[4] { 1, 3, 7, 9 };
+            int[] array_B = new int[4] { 2, 4, 6, 8 };
+
+            Random random = new Random();
+
+            int randomValue;
+
+            if (firstRun)
+            {
+
+                for (int i = 0; i < 4; i++)
+                {
+                    if (mapArray[4] == playerPattern)
+                    {
+                        if (mapArray[array_A[i] - 1] == blankPattern)
+                        {
+                            SetPattern(array_A[i], computerPattern, boolValue, out playerTurn);
+                            firstRun = !firstRun;
+                            break;
+                        }
+                    }
+
+                    if (mapArray[array_A[i] - 1] == playerPattern && mapArray[4] == blankPattern)
+                    {
+                        SetPattern(5, computerPattern, boolValue, out playerTurn);
+                        firstRun = !firstRun;
+                        break;
+                    }
+
+                    if (mapArray[array_B[i] - 1] == playerPattern && mapArray[4] == blankPattern)
+                    {
+                        firstRun = !firstRun;
+                        break;
+                    }
+
+                }
+
+            }
+            else
+            {
+                while (true)
+                {
+                    randomValue = random.Next(0, 8);
+
+                    if (mapArray[randomValue] == blankPattern)
+                    {
+                        SetPattern(randomValue + 1, computerPattern, boolValue, out playerTurn);
+                        break;
+                    }
+                    
+                }
+            }
         }
 
         public void CheckBingo(out bool runWhile)
@@ -159,22 +220,22 @@ namespace _11stProject
                 Console.Clear();
                 PrintMap();
 
-                int inputValue = InputKey();
-
-                if (inputValue == 0)
-                {
-                    Console.WriteLine("올바르지 않은 키 입력입니다.");
-                    Task.Delay(1000).Wait();
-                    continue;
-                }
-
                 if (playerTurn)
                 {
+                    int inputValue = InputKey();
+
+                    if (inputValue == 0)
+                    {
+                        Console.WriteLine("올바르지 않은 키 입력입니다.");
+                        Task.Delay(1000).Wait();
+                        continue;
+                    }
+
                     SetPattern(inputValue, playerPattern, playerTurn, out playerTurn);
                 }
                 else
                 {
-                    SetPattern(inputValue, computerPattern, playerTurn, out playerTurn);
+                    ComputerAI(playerTurn, out playerTurn);
                 }
 
                 CheckBingo(out runWhile);
