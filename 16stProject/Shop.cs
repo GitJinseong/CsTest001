@@ -69,9 +69,6 @@ namespace _16stProject
 
         }
 
-        // 상점 초기화
-
-
         // 상점에 아이템 등록
         public void SetItem(string itemName, int itemPrice)
         {
