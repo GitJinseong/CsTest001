@@ -16,7 +16,7 @@ namespace _13stProject
 
             printClass.PrintMessage("Hello World!");
             Print001.PrintMessage("Hi World!");
-            Print001.PrineMessage2();
+            Print001.PrintMessage2();
         }
     }
 }

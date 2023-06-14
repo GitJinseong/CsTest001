@@ -126,28 +126,28 @@ namespace _12stProject
 
             switch (direction)
             {
-                case "w":
+                case "w": case "W":
                     if (CheckMoveRock(x, y - 1) == 1)
                     {
                         rockLocation[num, 0] = y < 1 ? y : y - 1;
                     }
                     break;
 
-                case "s":
+                case "s": case "S":
                     if (CheckMoveRock(x, y + 1) == 1)
                     {
                         rockLocation[num, 0] = y < mapSize - 1 ? y + 1 : y;
                     }
                     break;
 
-                case "a":
+                case "a": case "A":
                     if (CheckMoveRock(x - 1, y) == 1)
                     {
                         rockLocation[num, 1] = x < 1 ? x : x - 1;
                     }
                     break;
 
-                case "d":
+                case "d": case "D":
                     if (CheckMoveRock(x + 1, y) == 1)
                     {
                         rockLocation[num, 1] = x < mapSize - 1 ? x + 1 : x;
