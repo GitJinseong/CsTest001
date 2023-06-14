@@ -11,6 +11,9 @@ namespace _14stProject
     {
         static void Main(string[] args)
         {
+            // Dictionary<키, 값>의 사용방법 TIP
+            // Dictionary<int, class> 형태로 클래스에 접근할 수 있다.
+
             // Dictionary는 Count로 접근할 수 없다.
             Dictionary<string, int> myInventory = new Dictionary<string, int>();
             myInventory.Add("빨간 포션", 5);
@@ -18,9 +21,9 @@ namespace _14stProject
             myInventory.Add("몰락한 왕의 검", 1);
 
             // 키와 값을 동시에 가져오려면 KeyValuePair<데이터타입, 데이터타입>을
-            // foreach에서 사용해야 한다.
+            // foreach에서 사용해야 한다. 그러면 Key와 Value를 가져올 수 있다.
             foreach(KeyValuePair<string, int> item in myInventory)
-            {
+             {
                 Console.WriteLine("아이템 이름: {0}, 아이템 갯수: {1}", item.Key, item.Value);
             }
 
