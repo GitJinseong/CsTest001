@@ -25,6 +25,10 @@ using System.Threading.Tasks;
 // 3. 플레이어가 코인을 먹을 수 있다.
 // 4. 플레이어가 코인을 먹는 경우 스코어가 올라간다.
 // 5. 일정 스코어를 달성하면 게임을 종료한다.
+// [추가]
+// 1. 벽이 생성된다.
+// 2. 벽을 들어서 움직일 수 있다.
+// 3. 벽이 두 개가 일렬로 위치하면 움직 일 수 없다.
 namespace _12stProject
 {
     public class KlayCoinGame
@@ -341,6 +345,7 @@ namespace _12stProject
 
                 moveCount++;
             }
+
         }
     }
 }

@@ -51,7 +51,7 @@ namespace _12stProject
                 }
                 else
                 {
-                    game.Initialize(inputValue, 20, 3, 3);
+                    game.Initialize(inputValue, inputValue, 3, 3);
                     game.Start();
                 }
 
