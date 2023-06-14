@@ -21,13 +21,13 @@ namespace _13stProject
         // 많이 사용할 경우 메모리에 과부하를 줄 수 있다.
         // 임의로 지울 수 없다.(프로그램 종료 전 까지)
         public static void PrintMessage(string localMessage)   // 메서드의 접근 수준도 public
-        {
+        { 
             staticMessage = localMessage;
             Console.WriteLine("이런걸 출력할 것 - > {0}", staticMessage);
                 // PrintMessage()
         }
 
-        public static void PrineMessage2()
+        public static void PrintMessage2()
         {
             // static에서 인스턴스 필드에 있는 멤버 변수/함수를 호출하려면
             // 따로 클래스 인스턴스 객체를 생성하여 호출 해야한다.

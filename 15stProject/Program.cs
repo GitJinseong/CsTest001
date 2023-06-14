@@ -37,6 +37,7 @@ namespace _15stProject
                 Console.WriteLine("아이템 이름: {0}, 아이템 갯수: {1}, 아이템 가격: {2}",
                     item.Value.itemName, item.Value.itemCount, item.Value.itemPrice);
             }
+
         }
     }
 }
