@@ -27,16 +27,35 @@ namespace _18stProject
         Player myPlayer;
         GameController myController;
 
-        private void Get_Victory()
+        private void ResetGame()
         {
-            Console.Clear();
-            Console.WriteLine("당신은 승리하였습니다!");
-            Task.Delay(1000000000).Wait();
+            Random random = new Random();
+            myStoneList = new List<Stone>();
+            board = new string[boardSize, boardSize];
+            myPlayer = new Player(random.Next(0, boardSize / 2), random.Next(0, boardSize / 2));
+
+            for (int i = 0; i < stoneCount; i++)
+            {
+                Stone myStone = new Stone(i, boardSize);
+                myStoneList.Add(myStone);
+            }
+
+        }
+
+        private void CheckVictory()
+        {
+            if (point == 5)
+            {
+                Console.Clear();
+                Console.WriteLine("당신은 승리하였습니다!!!");
+                Task.Delay(1000000000).Wait();
+            }
         }
 
         private void CheckThreeRocks()
         {
             int count = 0;
+            int count2 = 0;
 
             // 타입이 2개
             for (int i = 0; i < myStoneList.Count; i++)
@@ -49,72 +68,27 @@ namespace _18stProject
                     //세로가 3일 경우
                     if ((y == myStoneList[j].dir_Y + 1 && x == myStoneList[j].dir_X)
                         ||
-                        (y == myStoneList[j].dir_Y - 1 && x == myStoneList[j].dir_X))
+                       (y == myStoneList[j].dir_Y - 1 && x == myStoneList[j].dir_X))
                     {
                         count++;
+                        continue;
                     }
 
-                }
-
-                for (int j = 0; j < myStoneList.Count; j++)
-                {
                     //가로가 3일 경우
-                    if ((x == myStoneList[j].dir_X + 1 && y == myStoneList[j].dir_Y)
+                    else if ((x == myStoneList[j].dir_X + 1 && y == myStoneList[j].dir_Y)
                         ||
-                        (x == myStoneList[j].dir_X - 1 && y == myStoneList[j].dir_Y))
+                       (x == myStoneList[j].dir_X - 1 && y == myStoneList[j].dir_Y))
                     {
-                        count++;
+                        count2++;
                     }
 
                 }
 
             }
 
-            if (count >= 3)
+            if (count >= 3 || 3 <= count2)
             {
-                Get_Victory();
-            }
-
-        }
-
-        private void RockMove(char value, int index)
-        {
-            int x = myStoneList[index].dir_X;
-            int y = myStoneList[index].dir_Y;
-
-            switch (value)
-            {
-                case 'w': case 'W':
-                    if (CheckRockMove(value, x, y) == false)
-                    {
-                        return;
-                    }
-                    myStoneList[index].Set_dir_Y(y == 0 ? y : y - 1);
-                    break;
-
-                case 'a': case 'A':
-                    if (CheckRockMove(value, x, y) == false)
-                    {
-                        return;
-                    }
-                    myStoneList[index].Set_dir_X(x == 0 ? x : x - 1);
-                    break;
-
-                case 's': case 'S':
-                    if (CheckRockMove(value, x, y) == false)
-                    {
-                        return;
-                    }
-                    myStoneList[index].Set_dir_Y(y == boardSize - 1 ? y : y + 1);
-                    break;
-
-                case 'd': case 'D':
-                    if (CheckRockMove(value, x, y) == false)
-                    {
-                        return;
-                    }
-                    myStoneList[index].Set_dir_X(x == boardSize - 1 ? x : x + 1);
-                    break;
+                Set_Point();
             }
 
         }
@@ -221,20 +195,52 @@ namespace _18stProject
             return true;
         }
 
-        private void ResetGame()
+        private void RockMove(char value, int index)
         {
-            myStoneList = new List<Stone>();
-            board = new string[boardSize, boardSize];
-            myPlayer = new Player(boardSize/2, boardSize/2);
-            myController = new GameController();
-            boardSize = boardSize;
-            stoneCount = 3;
-            point = 0;
-
-            for (int i = 0; i < stoneCount; i++)
+            for (int i = 0; i < boardSize; i++)
             {
-                Stone myStone = new Stone(boardSize-i);
-                myStoneList.Add(myStone);
+                int x = myStoneList[index].dir_X;
+                int y = myStoneList[index].dir_Y;
+
+                switch (value)
+                {
+                    case 'w':
+                    case 'W':
+                        if (CheckRockMove(value, x, y) == false)
+                        {
+                            return;
+                        }
+                        myStoneList[index].Set_dir_Y(y == 0 ? y : y - 1);
+                        break;
+
+                    case 'a':
+                    case 'A':
+                        if (CheckRockMove(value, x, y) == false)
+                        {
+                            return;
+                        }
+                        myStoneList[index].Set_dir_X(x == 0 ? x : x - 1);
+                        break;
+
+                    case 's':
+                    case 'S':
+                        if (CheckRockMove(value, x, y) == false)
+                        {
+                            return;
+                        }
+                        myStoneList[index].Set_dir_Y(y == boardSize - 1 ? y : y + 1);
+                        break;
+
+                    case 'd':
+                    case 'D':
+                        if (CheckRockMove(value, x, y) == false)
+                        {
+                            return;
+                        }
+                        myStoneList[index].Set_dir_X(x == boardSize - 1 ? x : x + 1);
+                        break;
+                }
+
             }
 
         }
@@ -279,6 +285,7 @@ namespace _18stProject
                     break;
 
                 case 'r': case 'R':
+                    point = 0;
                     ResetGame();
                     break;
             }
@@ -297,6 +304,15 @@ namespace _18stProject
                 Console.WriteLine();
             }
 
+        }
+
+        private void Set_Point()
+        {
+            Console.Clear();
+            point++;
+            Console.WriteLine("얻은 점수 : {0}", point);
+            Task.Delay(500).Wait();
+            ResetGame();
         }
 
         private void Set_Map()
@@ -328,23 +344,6 @@ namespace _18stProject
 
         }
 
-        public GameBoard(int size)
-        {
-            board = new string[size, size];
-            myPlayer = new Player(size/2, size/2);
-            myController = new GameController();
-            boardSize = size;
-            stoneCount = 3;
-
-            for (int i = 0; i < stoneCount; i++)
-            {
-                Stone myStone = new Stone(size-i);
-                myStoneList.Add(myStone);
-            }
-
-            Start();
-        }
-
         private void Start()
         {
             while (true)
@@ -354,8 +353,27 @@ namespace _18stProject
                 Get_Map();
                 HandleDirectionKey(myController.Get_Key());
                 CheckThreeRocks();
+                CheckVictory();
             }
 
+        }
+
+        public GameBoard(int size)
+        {
+            Random random = new Random();
+            board = new string[size, size];
+            myPlayer = new Player(random.Next(0, size / 2), random.Next(0, size / 2));
+            myController = new GameController();
+            boardSize = size;
+            stoneCount = 3;
+
+            for (int i = 0; i < stoneCount; i++)
+            {
+                Stone myStone = new Stone(i, size - (i + 1));
+                myStoneList.Add(myStone);
+            }
+
+            Start();
         }
 
     }

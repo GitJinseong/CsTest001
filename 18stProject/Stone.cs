@@ -29,12 +29,15 @@ namespace _18stProject
             dir_X = x;
         }
 
-        public Stone(int size)
+        public Stone(int size, int size2)
         {
             Random random = new Random();
 
-            int x = random.Next(0, size-1);
-            int y = random.Next(0, size-1);
+            int x = random.Next(size, size2);
+            Task.Delay(100).Wait();
+            int y = random.Next(0, size2*10) % size2;
+            Task.Delay(100).Wait();
+
             dir_X = x;
             dir_Y = y;
         }
