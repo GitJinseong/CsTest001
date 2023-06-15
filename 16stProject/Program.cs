@@ -67,16 +67,16 @@ namespace _16stProject
             shopItem_010.InitItem(item_010.itemName, item_010.itemPrice);
 
             Dictionary<string, Shop> myShopItemList = new Dictionary<string, Shop>();
-            myShopItemList.Add(item_001.itemName, shopItem_001);
-            myShopItemList.Add(item_002.itemName, shopItem_002);
-            myShopItemList.Add(item_003.itemName, shopItem_003);
-            myShopItemList.Add(item_004.itemName, shopItem_004);
-            myShopItemList.Add(item_005.itemName, shopItem_005);
-            myShopItemList.Add(item_006.itemName, shopItem_006);
-            myShopItemList.Add(item_007.itemName, shopItem_007);
-            myShopItemList.Add(item_008.itemName, shopItem_008);
-            myShopItemList.Add(item_009.itemName, shopItem_009);
-            myShopItemList.Add(item_010.itemName, shopItem_010);
+            myShopItemList.Add(shopItem_001.itemName, shopItem_001);
+            myShopItemList.Add(shopItem_002.itemName, shopItem_002);
+            myShopItemList.Add(shopItem_003.itemName, shopItem_003);
+            myShopItemList.Add(shopItem_004.itemName, shopItem_004);
+            myShopItemList.Add(shopItem_005.itemName, shopItem_005);
+            myShopItemList.Add(shopItem_006.itemName, shopItem_006);
+            myShopItemList.Add(shopItem_007.itemName, shopItem_007);
+            myShopItemList.Add(shopItem_008.itemName, shopItem_008);
+            myShopItemList.Add(shopItem_009.itemName, shopItem_009);
+            myShopItemList.Add(shopItem_010.itemName, shopItem_010);
             // 아이템 생성 & 상점 리스트에 등록
 
             // 상점에 랜덤하게 3개 아이템 등록 & 상점 출력
