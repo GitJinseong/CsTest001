@@ -22,61 +22,26 @@ namespace _16stProject
             // 골드 지급
 
             // 아이템 생성 & 상점 리스트에 등록
-            Item item_001 = new Item();
-            Item item_002 = new Item();
-            Item item_003 = new Item();
-            Item item_004 = new Item();
-            Item item_005 = new Item();
-            Item item_006 = new Item();
-            Item item_007 = new Item();
-            Item item_008 = new Item();
-            Item item_009 = new Item();
-            Item item_010 = new Item();
+            // 이런 방식으로 리스트를 만든 후 for문으로 넣을 수 있다.
+            List<Item> itemList = new List<Item>();
 
-            item_001.InitItem("아이템1", 10);
-            item_002.InitItem("아이템2", 20);
-            item_003.InitItem("아이템3", 30);
-            item_004.InitItem("아이템4", 40);
-            item_005.InitItem("아이템5", 50);
-            item_006.InitItem("아이템6", 60);
-            item_007.InitItem("아이템7", 70);
-            item_008.InitItem("아이템8", 80);
-            item_009.InitItem("아이템9", 90);
-            item_010.InitItem("아이템10", 100);
-
-            Shop shopItem_001 = new Shop();
-            Shop shopItem_002 = new Shop();
-            Shop shopItem_003 = new Shop();
-            Shop shopItem_004 = new Shop();
-            Shop shopItem_005 = new Shop();
-            Shop shopItem_006 = new Shop();
-            Shop shopItem_007 = new Shop();
-            Shop shopItem_008 = new Shop();
-            Shop shopItem_009 = new Shop();
-            Shop shopItem_010 = new Shop();
-
-            shopItem_001.InitItem(item_001.itemName, item_001.itemPrice);
-            shopItem_002.InitItem(item_002.itemName, item_002.itemPrice);
-            shopItem_003.InitItem(item_003.itemName, item_003.itemPrice);
-            shopItem_004.InitItem(item_004.itemName, item_004.itemPrice);
-            shopItem_005.InitItem(item_005.itemName, item_005.itemPrice);
-            shopItem_006.InitItem(item_006.itemName, item_006.itemPrice);
-            shopItem_007.InitItem(item_007.itemName, item_007.itemPrice);
-            shopItem_008.InitItem(item_008.itemName, item_008.itemPrice);
-            shopItem_009.InitItem(item_009.itemName, item_009.itemPrice);
-            shopItem_010.InitItem(item_010.itemName, item_010.itemPrice);
+            for(int i = 0; i < 10; i++)
+            {
+                Item item = new Item();
+                itemList.Add(item);
+                itemList[i].InitItem("아이템" + i+1, 10*(i+1));    // 이런 방식으로 문자열에 숫자를 넣을 수 있다.
+            }
 
             Dictionary<string, Shop> myShopItemList = new Dictionary<string, Shop>();
-            myShopItemList.Add(shopItem_001.itemName, shopItem_001);
-            myShopItemList.Add(shopItem_002.itemName, shopItem_002);
-            myShopItemList.Add(shopItem_003.itemName, shopItem_003);
-            myShopItemList.Add(shopItem_004.itemName, shopItem_004);
-            myShopItemList.Add(shopItem_005.itemName, shopItem_005);
-            myShopItemList.Add(shopItem_006.itemName, shopItem_006);
-            myShopItemList.Add(shopItem_007.itemName, shopItem_007);
-            myShopItemList.Add(shopItem_008.itemName, shopItem_008);
-            myShopItemList.Add(shopItem_009.itemName, shopItem_009);
-            myShopItemList.Add(shopItem_010.itemName, shopItem_010);
+            List<Shop> ShopList = new List<Shop>();
+
+            for(int i = 0; i < 10; i++)
+            {
+                Shop item = new Shop();
+                ShopList.Add(item);
+                ShopList[i].InitItem(itemList[i].itemName, itemList[i].itemPrice);
+                myShopItemList.Add(ShopList[i].itemName, ShopList[i]);
+            }
             // 아이템 생성 & 상점 리스트에 등록
 
             // 상점에 랜덤하게 3개 아이템 등록 & 상점 출력
