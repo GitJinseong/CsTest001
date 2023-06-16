@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _19stProject
+namespace _20stProject
 {
     #region 넘버 객체를 생성하는 클래스
     #endregion
@@ -22,7 +22,7 @@ namespace _19stProject
         {;
             Dir_X = x;
             Dir_Y = y;
-            Value = 1;
+            Value = 2;
         }
 
         #region X 좌표 설정 함수

@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 // 가장 우측 열과 가장 아래쪽 행의 숫자는 이동하지 않는다.(Hard)
 // -> 오른쪽, 아래로 입력 가능.
 #endregion
-namespace _19stProject
+namespace _20stProject
 {
     #region 게임을 관리하는 클래스
     #endregion
@@ -31,7 +31,6 @@ namespace _19stProject
         static extern char _getch();
         public int Size { get; private set; } = default;
         public string[,] Map { get; private set; } = default;
-        public string[] Patterns { get; private set; } = default;
         public List<Number> Numbers { get; private set; } = default;
         #endregion
 
@@ -48,15 +47,16 @@ namespace _19stProject
         {
             Size = size_;
             Map = new string[Size, Size];
-            Patterns = new string[10] {"①", "②", "③", "④", "⑤", "⑥", "⑦", "⑧", "⑨", "⑩"};
             Numbers = new List<Number>();
+
+            Set_RandomOne();
 
             while (true)
             {
                 Console.Clear();
-                Set_RandomOne();
                 Set_AddMatchingNumbers();
                 Set_CreateMap();
+                Set_RandomOne();
                 Get_PrintMap();
                 Get_HandleInput();
                 Get_IsEndGame();
@@ -70,8 +70,7 @@ namespace _19stProject
         {
             for (int i = 0; i < Numbers.Count; i++)
             {
-
-                if (Numbers[i].Value > 1000)
+                if (Numbers[i].Value >= 2048)
                 {
                     Console.WriteLine("당신은 승리하였습니다!!!");
                     Task.Delay(1000000000).Wait();
@@ -85,10 +84,8 @@ namespace _19stProject
         #endregion
         public void Get_PrintMap()
         {
-
             for (int y = 0; y < Size; y++)
             {
-
                 for (int x = 0; x < Size; x++)
                 {
                     Console.Write("{0}", Map[y, x]);
@@ -129,10 +126,8 @@ namespace _19stProject
         #endregion
         public void Set_RemoveList()
         {
-
             for (int i = Numbers.Count - 1; -1 < i; i--)
             {
-
                 if (Numbers[i].Value == 0)
                 {
                     Numbers.RemoveAt(i);
@@ -153,11 +148,17 @@ namespace _19stProject
 
                 for (int j = i + 1; j < Numbers.Count; j++)
                 {
-
                     if ((x == Numbers[j].Dir_X && y == Numbers[j].Dir_Y && 0 < Numbers[j].Value))
                     {
+                        if (!(Numbers[i].Value == Numbers[j].Value))
+                        {
+                            Numbers[j].Set_Value(0);
+                            continue;
+                        }
+
                         Numbers[i].Set_Value(Numbers[i].Value + Numbers[j].Value);
                         Numbers[j].Set_Value(0);
+
                     }
 
                 }
@@ -169,33 +170,38 @@ namespace _19stProject
             Set_RemoveList();
         }
 
-        #region 맵에 존재하는 모든 숫자를 위쪽 끝으로 이동시키는 함수
+        #region 숫자를 위쪽으로 이동시키는 함수
         #endregion
         public void Set_MoveOnesUp()
         {
             for (int i = 0; i < Numbers.Count; i++)
             {
+                int x = Numbers[i].Dir_X;
+                int y = Numbers[i].Dir_Y;
 
-                for (int j = 0; j < Size; j++)
+                if ((y > 0)
+                    &&
+                    ((Map[y, x] == Map[y - 1, x]) || (Map[y - 1, x] == "□")))
                 {
-                    int y = Numbers[i].Dir_Y;
                     Numbers[i].Set_Dir_Y(y == 0 ? y : y - 1);
                 }
 
             }
-
         }
 
-        #region 맵에 존재하는 모든 숫자를 아래쪽 끝으로 이동시키는 함수
+        #region 숫자를 아래쪽으로 이동시키는 함수
         #endregion
         public void Set_MoveOnesDown()
         {
             for (int i = 0; i < Numbers.Count; i++)
             {
+                int x = Numbers[i].Dir_X;
+                int y = Numbers[i].Dir_Y;
 
-                for (int j = 0; j < Size; j++)
+                if ((y < Size - 1)
+                    &&
+                    ((Map[y, x] == Map[y + 1, x]) || (Map[y + 1, x] == "□")))
                 {
-                    int y = Numbers[i].Dir_Y;
                     Numbers[i].Set_Dir_Y(y == Size - 1 ? y : y + 1);
                 }
 
@@ -203,16 +209,19 @@ namespace _19stProject
 
         }
 
-        #region 맵에 존재하는 모든 숫자를 왼쪽 끝으로 이동시키는 함수
+        #region 숫자를 왼쪽으로 이동시키는 함수
         #endregion
         public void Set_MoveOnesLeft()
         {
             for (int i = 0; i < Numbers.Count; i++)
             {
+                int x = Numbers[i].Dir_X;
+                int y = Numbers[i].Dir_Y;
 
-                for (int j = 0; j < Size; j++)
+                if ((x > 0)
+                    &&
+                    ((Map[y, x] == Map[y, x - 1]) || (Map[y, x - 1] == "□")))
                 {
-                    int x = Numbers[i].Dir_X;
                     Numbers[i].Set_Dir_X(x == 0 ? x : x - 1);
                 }
 
@@ -220,16 +229,19 @@ namespace _19stProject
 
         }
 
-        #region 맵에 존재하는 모든 숫자를 오른쪽 끝으로 이동시키는 함수
+        #region 숫자를 오른쪽으로 이동시키는 함수
         #endregion
         public void Set_MoveOnesRight()
         {
             for (int i = 0; i < Numbers.Count; i++)
             {
+                int x = Numbers[i].Dir_X;
+                int y = Numbers[i].Dir_Y;
 
-                for (int j = 0; j < Size; j++)
+                if ((x < Size - 1)
+                    &&
+                    ((Map[y, x] == Map[y, x + 1]) || (Map[y, x + 1] == "□")))
                 {
-                    int x = Numbers[i].Dir_X;
                     Numbers[i].Set_Dir_X(x == Size - 1 ? x : x + 1);
                 }
 
@@ -242,21 +254,18 @@ namespace _19stProject
         {
             for (int y = 0; y < Size; y++)
             {
-
                 for (int x = 0; x < Size; x++)
                 {
                     Map[y, x] = "□";
 
                     for (int k = 0; k < Numbers.Count; k++)
                     {
-
                         if ((x == Numbers[k].Dir_X) && (Numbers[k].Dir_Y) == y)
                         {
-
-                           if (Numbers[k].Value <= 10)
+                           if (Numbers[k].Value <= 9)
                            {
-                              Map[y, x] = Patterns[Numbers[k].Value - 1];
-                           }
+                              Map[y, x] = "0" + Numbers[k].Value.ToString();
+                            }
                            else
                            {
                               Map[y, x] = Numbers[k].Value.ToString();
@@ -277,14 +286,41 @@ namespace _19stProject
         public void Set_RandomOne()
         {
             Random random = new Random();
+ 
+            if (Numbers.Count > 0 && !(Numbers.Count == (Size * Size)))
+            {
+                bool loop = true;
 
-            for (int i = 0; i < 3; i++)
+                for (int y = 0; y < Size; y++)
+                {
+                    if (!loop)
+                    {
+                        break;
+                    }
+
+                    for (int x = 0; x < Size; x++)
+                    {
+                        if (Map[y, x] == "□")
+                        {
+                            Number number = new Number(x, y);
+                            Numbers.Add(number);
+                            loop = false;
+                            break;
+                        }
+
+                    }
+
+                }
+
+            }
+            else
             {
                 int x = random.Next(0, Size);
                 int y = random.Next(0, Size);
+
                 Number number = new Number(x, y);
                 Numbers.Add(number);
-            }
+            } 
 
         }
 
