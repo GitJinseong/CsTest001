@@ -76,7 +76,7 @@ namespace _17stProject
             foreach (var item in myInventory2)
             {
                 Console.WriteLine("아이템 이름: {0}, 아이템 갯수: {1}, 아이템 가격: {2}",
-                    item.Value.itemName, item.Value.itemCount, item.Value.itemPrice);
+                    item.Value.Get_ItemName(), item.Value.itemCount, item.Value.itemPrice);
             }
         }
     }
