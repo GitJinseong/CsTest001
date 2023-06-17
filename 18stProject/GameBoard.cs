@@ -57,7 +57,6 @@ namespace _18stProject
             int count = 0;
             int count2 = 0;
 
-            // 타입이 2개
             for (int i = 0; i < myStoneList.Count; i++)
             {
                 int x = myStoneList[i].dir_X;
@@ -204,8 +203,7 @@ namespace _18stProject
 
                 switch (value)
                 {
-                    case 'w':
-                    case 'W':
+                    case 'w': case 'W':
                         if (CheckRockMove(value, x, y) == false)
                         {
                             return;
@@ -213,8 +211,7 @@ namespace _18stProject
                         myStoneList[index].Set_dir_Y(y == 0 ? y : y - 1);
                         break;
 
-                    case 'a':
-                    case 'A':
+                    case 'a': case 'A':
                         if (CheckRockMove(value, x, y) == false)
                         {
                             return;
@@ -222,8 +219,7 @@ namespace _18stProject
                         myStoneList[index].Set_dir_X(x == 0 ? x : x - 1);
                         break;
 
-                    case 's':
-                    case 'S':
+                    case 's': case 'S':
                         if (CheckRockMove(value, x, y) == false)
                         {
                             return;
@@ -231,8 +227,7 @@ namespace _18stProject
                         myStoneList[index].Set_dir_Y(y == boardSize - 1 ? y : y + 1);
                         break;
 
-                    case 'd':
-                    case 'D':
+                    case 'd': case 'D':
                         if (CheckRockMove(value, x, y) == false)
                         {
                             return;

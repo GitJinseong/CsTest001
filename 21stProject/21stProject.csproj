@@ -43,8 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="SubClass\Battle.cs" />
+    <Compile Include="SubClass\CardGame.cs" />
+    <Compile Include="Manager\DB_Manager.cs" />
+    <Compile Include="Manager\GameManager.cs" />
+    <Compile Include="Interface\IDamageable.cs" />
+    <Compile Include="SubClass\Monster.cs" />
+    <Compile Include="MainClass\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubClass\Shop.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
