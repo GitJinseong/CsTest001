@@ -43,15 +43,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SubClass\Battle.cs" />
-    <Compile Include="SubClass\CardGame.cs" />
-    <Compile Include="Manager\DB_Manager.cs" />
-    <Compile Include="Manager\GameManager.cs" />
-    <Compile Include="Interface\IDamageable.cs" />
-    <Compile Include="SubClass\Monster.cs" />
-    <Compile Include="MainClass\Program.cs" />
+    <Compile Include="ChildClass\Orc.cs" />
+    <Compile Include="ChildClass\Goblin.cs" />
+    <Compile Include="ChildClass\Slime.cs" />
+    <Compile Include="Manager\Input_Manager.cs" />
+    <Compile Include="SubClass\Player.cs" />
+    <Compile Include="Manager\Shop_Manager.cs" />
+    <Compile Include="Manager\Monster_Manager.cs" />
+    <Compile Include="SubClass\Item.cs" />
+    <Compile Include="Manager\Battle_Manager.cs" />
+    <Compile Include="Manager\CardGame_Manager.cs" />
+    <Compile Include="DB\DB.cs" />
+    <Compile Include="Manager\GameBoard_Manager.cs" />
+    <Compile Include="ParentClass\Monster.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SubClass\Shop.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
