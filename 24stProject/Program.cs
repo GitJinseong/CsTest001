@@ -18,7 +18,7 @@ namespace _24stProject
     {
         static void Main(string[] args)
         {
-            Jokbo.Get_Card_Numbers(1,10,9,8,7,6);
+            Jokbo.Get_Card_Numbers(1,3,3,4,5);
             Jokbo.Get_Card_Patterns(0, 3, 2, 0, 1, 2);
             Jokbo.Set_ConvertCards();
 

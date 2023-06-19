@@ -205,29 +205,45 @@ namespace _24stProject
         // 다른 문양의 연속된 숫자
         public static bool Straight()
         {
-            // 역순 오류 발생
-            int minValue = Card_Numbers.Min();
-            int maxCount = Card_Numbers.Max() + 1;
-            int count = 0;
+            // 중복 숫자 제거
+            int[] temp = new int[Card_Numbers.Count()];
             for (int i = 0; i < Card_Numbers.Count(); i++)
             {
-                for (int k = minValue; k < minValue + Card_Numbers.Count(); k++)
+                for (int j = 0; j < Card_Numbers.Count(); j++)
                 {
-                    if (k == Card_Numbers[i])
+                    if (!(temp[i] == Card_Numbers[j]))
                     {
- 
-                        count++;
-                        continue;
-                    }
-
-                    if ((maxCount - i) == Card_Numbers[i])
-                    {
-                        count++;
+                        temp[i] = Card_Numbers[j];
+                        
                     }
                 }
             }
 
-            if (count == 5)
+            // 역순 오류 발생
+            int minValue = Card_Numbers.Min();
+            int maxValue = Card_Numbers.Max();
+            int count = 0;
+            for (int i = 0; i < temp.Count(); i++)
+            {
+                for (int j = minValue; j < minValue + temp.Count(); j++)
+                {
+                    int k = 1;
+                    if (j == temp[i])
+                    {
+                        count++;
+                        continue;
+                    }
+
+                    if ((maxValue - k) == temp[i])
+                    {
+                        count++;
+                    }
+
+                    k++;
+                }
+            }
+
+            if (count >= 5)
             {
                 Console.WriteLine("스트레이트!");
                 return true;
