@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C9F6D138-376C-48FD-AA2A-821E45A2C2EA}</ProjectGuid>
+    <ProjectGuid>{B26B714A-2EB2-4DF7-B5F9-591A94CBB120}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>_21stProject</RootNamespace>
-    <AssemblyName>21stProject</AssemblyName>
+    <RootNamespace>_22stProject</RootNamespace>
+    <AssemblyName>22stProject</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,19 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChildClass\Orc.cs" />
-    <Compile Include="ChildClass\Goblin.cs" />
-    <Compile Include="ChildClass\Slime.cs" />
-    <Compile Include="Manager\Input_Manager.cs" />
-    <Compile Include="SubClass\Player.cs" />
-    <Compile Include="Manager\Shop_Manager.cs" />
-    <Compile Include="Manager\Monster_Manager.cs" />
-    <Compile Include="SubClass\Item.cs" />
-    <Compile Include="Manager\Battle_Manager.cs" />
-    <Compile Include="Manager\CardGame_Manager.cs" />
-    <Compile Include="Managers\Managers.cs" />
-    <Compile Include="Manager\GameBoard_Manager.cs" />
-    <Compile Include="ParentClass\Monster.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -21,9 +21,6 @@ namespace _21stProject
     {
         static void Main(string[] args)
         {
-            // 플레이어 설정
-            DB.Game.Set_Player(DB.Player);
-
             // 커서 숨기기
             Console.CursorVisible = false;
 
@@ -33,31 +30,34 @@ namespace _21stProject
             // 버퍼 사이즈 설정
             Console.SetBufferSize(80, 40);
 
+            // 플레이어 설정
+            Managers.Game.Set_Player(Managers.Player);
+
             // 게임 사이즈 설정
-            DB.Game.Set_Size(30);
+            Managers.Game.Set_Size(30);
 
             // 플레이어 위치 이동
-            DB.Player.Set_Move(10, 10);
+            Managers.Player.Set_Move(10, 10);
 
             // 플레이어 스텟 설정
-            DB.Player.Set_Stats(50,50,5,3,100);
+            Managers.Player.Set_Stats(50,50,5,3,100);
 
             while (true)
             {
-
-                // 콘솔 창에 버퍼 내용을 표시
+                // 커서 위치 설정
                 Console.SetCursorPosition(0, 0);
 
                 // 게임
-                DB.Game.Set_CreateMap();
-                DB.Game.Get_PrintMap();
-                DB.Game.Get_HandleInput();
-                DB.Game.Get_CheckEvent();
+                Managers.Game.Set_CreateMap();
+                Managers.Game.Get_PrintMap();
+                Managers.Game.Get_HandleInput();
+                Managers.Game.Get_CheckEvent();
                 // 게임
 
-                // 20fps 설정
-                System.Threading.Thread.Sleep(16 * 3);
+                // 120fps 설정
+                System.Threading.Thread.Sleep(8);
             }
+
         }
 
     }

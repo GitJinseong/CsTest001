@@ -31,7 +31,7 @@ namespace _21stProject.Manager
             for (int i = 0; i < SHOP_ITEMS_COUNT; i++)
             {
                 Random random = new Random();
-                Item item = new Item("잡화", random.Next(0, 99999999));
+                Item item = new Item("잡화", random.Next(0, 2147483647));
                 ShopList.Add(item);
                 System.Threading.Thread.Sleep(16);
             }
@@ -55,14 +55,14 @@ namespace _21stProject.Manager
             Console.WriteLine("\n 아이템 옆에 표시된 번호를 눌러 살 수는 있습니다.");
             Console.WriteLine("내가 보유한 골드: {0}", player.Golds);
 
-            Set_BuyItem(player, DB.Input._GetInt());
+            Set_BuyItem(player, Managers.Input._GetInt());
         }
 
         #region 상점 아이템 구매 함수
         #endregion
         public void Set_BuyItem(Player player, int inputValue)
         {
-            if (0 > inputValue || inputValue > ShopList.Count)
+            if (inputValue >= ShopList.Count)
             {
                 Console.WriteLine("\n잘못된 값을 입력했습니다.");
                 Task.Delay(500).Wait();

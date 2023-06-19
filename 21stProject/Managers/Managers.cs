@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace _21stProject
 {
-    public static class DB
+    public static class Managers
     {
         #region 초기 선언부
         public static GameBoard_Manager Game { get; private set; } = new GameBoard_Manager(20);

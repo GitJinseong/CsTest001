@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security.Policy;
 using System.Text;
@@ -23,7 +24,7 @@ namespace _21stProject
     public class GameBoard_Manager
     {
         #region 초기 선언부
-        public const int EVENT_COUNT = 3;
+        const int EVENT_COUNT = 3;
         public Player myPlayer { get; private set; } = default;
         public int Size { get; private set; } = default;
         public string[,] Map { get; private set; } = default;
@@ -35,7 +36,7 @@ namespace _21stProject
         #endregion
         public GameBoard_Manager(int size_)
         {
-            myPlayer = DB.Player;
+            myPlayer = Managers.Player;
             Size = size_;
             Map = new string[Size, Size];
             // [0]: 상점 / [1]: 배틀 / [2]: 카드게임
@@ -121,15 +122,18 @@ namespace _21stProject
             switch (num)
             {
                 case 0:
-                    DB.Shop.Get_OpenShop(myPlayer);
+                    Managers.Shop.Set_CreateItemList();
+                    Managers.Shop.Get_OpenShop(myPlayer);
                     break;
 
                 case 1:
-                    DB.Battle.Get_Start(myPlayer, DB.Mob.orc);
+                    Random random = new Random();
+                    int index = random.Next(0, Managers.Mob.Get_MONSTER_TYPE_COUNT());
+                    Managers.Battle.Get_Start(myPlayer, Managers.Mob.Storage[index]);
                     break;
 
                 case 2:
-                    DB.CardGame.Get_Start(myPlayer);
+                    Managers.CardGame.Get_Start(myPlayer);
                     break;
             }
         }
@@ -156,7 +160,7 @@ namespace _21stProject
         #endregion
         public void Get_HandleInput()
         {
-            char inputValue = DB.Input._GetCh();
+            char inputValue = Managers.Input._GetCh();
             int x = myPlayer.Dir_X;
             int y = myPlayer.Dir_Y;
 

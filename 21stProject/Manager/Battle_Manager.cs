@@ -35,7 +35,7 @@ namespace _21stProject
                     Console.WriteLine("\n치료비 -10억 추가");
 
                     player.Set_Golds(player.Golds - 1_000_000_000);
-                    DB.Input._GetCh();
+                    Managers.Input._GetCh();
                     break;
                 }
 
@@ -43,7 +43,7 @@ namespace _21stProject
                 {
                     Console.WriteLine("\n당신은 승리하였습니다.");
 
-                    DB.Input._GetCh();
+                    Managers.Input._GetCh();
                     break;
                 }
 

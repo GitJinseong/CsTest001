@@ -37,7 +37,7 @@ namespace _21stProject
 
             }
 
-            DB.Input._GetCh();
+            Managers.Input._GetCh();
         }
 
     }
