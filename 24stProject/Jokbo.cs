@@ -22,17 +22,24 @@ namespace _24stProject
         static string[] Convert_Patterns = new string[4] {"♣", "♥", "◆", "♠"};
         static string[] Convert_Numbers = new string[13] { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
         static string[] Cards = default;
-        public static void Get_Card_Numbers(params int[] numbers)
+
+        #region 카드 넘버 값 추가
+        #endregion
+        public static void Set_Card_Numbers(params int[] numbers)
         {
             Card_Numbers = numbers;
         }
 
-        public static void Get_Card_Patterns(params int[] patterns)
+        #region 카드 패턴 값 추가
+        #endregion
+        public static void Set_Card_Patterns(params int[] patterns)
         {
             Card_Patterns = patterns;
         }
 
-        public static void Set_ConvertCards()
+        #region 카드 스트링 변환 함수
+        #endregion
+        public static void Set_ToStringCards()
         {
             Cards = new string[Card_Numbers.Count()];
             for (int i = 0; i < Card_Numbers.Count(); i++)
@@ -42,11 +49,11 @@ namespace _24stProject
                 Cards[i] = Convert_Patterns[p] + Convert_Numbers[n];
                 Console.Write(Cards[i] + " ");
             }
-
+            Console.WriteLine();
         }
 
-        // 1. 로얄 스트레이트 플러시
-        // 같은 문양의 A, 10, J, Q, K
+        #region 1. 로얄 스트레이트 플러시(같은 문양의 {A, 10, J, Q, K})
+        #endregion
         public static bool Royal_Straight_Flush()
         {
             string[] jokbo_Array = new string[5] { "10", "J", "Q", "K", "A" };
@@ -67,7 +74,6 @@ namespace _24stProject
 
                 if (count == 5)
                 {
-                    Console.WriteLine("로얄 스트레이트 플러시!");
                     return true;
                 }
             }
@@ -75,66 +81,32 @@ namespace _24stProject
             return false;
         }
 
-        // 2. 스트레이트 플러시
-        // 같은 문양의 이어지는 숫자.
+        #region 2. 스트레이트 플러시(같은 문양의 이어지는 숫자)
+        #endregion
         public static bool Straight_Flush()
         {
-            int minValue = Card_Numbers.Min();
-            int maxCount = minValue + Card_Numbers.Count();
-            for (int i = 0; i < PATTERNS_COUNT; i++)
+            if (Straight() && Flush())
             {
-                int count = 0;
-                for (int j = 0; j < Card_Numbers.Count(); j++)
-                {
-                    for (int k = minValue; k < maxCount; k++)
-                    {
-                        if (k == Card_Numbers[j] && Card_Patterns[j] == i)
-                        {
-                            count++;
-                        }
-                    }
-                }
-
-                if (count == 5)
-                {
-                    Console.WriteLine("스트레이트 플러시!");
-                    return true;
-                }
+                return true;
             }
 
             return false;
         }
 
-        // 3. 포카드
-        // 같은 숫자의 카드 4장
+        #region 3. 포카드(같은 숫자의 카드 4장)
+        #endregion
         public static bool Four_Of_A_Kind()
         {
-            int minValue = Card_Numbers.Min();
-            int maxCount = Card_Numbers.Max() + 1;
-            for (int i = minValue; i < maxCount; i++)
+            if (Get_SameNumbers(4, 1))
             {
-                int count = 0;
-                for (int j = 0; j < Card_Numbers.Count(); j++)
-                {
-                    if (Card_Numbers[j] == i)
-                    {
-                        count++;
-                    }
-
-                }
-
-                if (count == 4)
-                {
-                    Console.WriteLine("포카드!");
-                    return true;
-                }
+                return true;
             }
 
             return false;
         }
 
-        // 4. 풀하우스
-        // 같은 숫자의 카드 3장과, 다른 같은 숫자의 카드 2장
+        #region 4. 풀하우스(같은 숫자의 카드 3장과, 다른 같은 숫자의 카드 2장)
+        #endregion
         public static bool Full_House()
         {
             int minValue = Card_Numbers.Min();
@@ -168,7 +140,6 @@ namespace _24stProject
 
                 if ((3 <= count && count2 >= 2) || (2 <= count && count2 >= 3))
                 {
-                    Console.WriteLine("풀하우스!");
                     return true;
                 }
             }
@@ -176,8 +147,8 @@ namespace _24stProject
             return false;
         }
 
-        // 5. 플러시
-        // 같은 문양의 카드 5장
+        #region 5. 플러시(같은 문양의 카드 5장)
+        #endregion
         public static bool Flush()
         {
             for (int i = 0; i < PATTERNS_COUNT; i++)
@@ -193,7 +164,6 @@ namespace _24stProject
 
                 if (count >= 5)
                 {
-                    Console.WriteLine("플러시!");
                     return true;
                 }
             }
@@ -201,84 +171,138 @@ namespace _24stProject
             return false;
         }
 
-        // 6. 스트레이트
-        // 다른 문양의 연속된 숫자
+        #region 6. 스트레이트(다른 문양의 연속된 숫자)
+        #endregion
         public static bool Straight()
         {
-            // 중복 숫자 제거
-            int[] temp = new int[Card_Numbers.Count()];
-            for (int i = 0; i < Card_Numbers.Count(); i++)
-            {
-                for (int j = 0; j < Card_Numbers.Count(); j++)
-                {
-                    if (!(temp[i] == Card_Numbers[j]))
-                    {
-                        temp[i] = Card_Numbers[j];
-                        
-                    }
-                }
-            }
-
-            // 역순 오류 발생
             int minValue = Card_Numbers.Min();
             int maxValue = Card_Numbers.Max();
-            int count = 0;
-            for (int i = 0; i < temp.Count(); i++)
+
+            // 중복 숫자 제거
+            int[] temp1 = new int[Card_Numbers.Count()];
+            int[] temp2 = (int[])Card_Numbers.Clone(); // 배열 복제
+            for (int i = 0; i < temp2.Count(); i++)
             {
-                for (int j = minValue; j < minValue + temp.Count(); j++)
+                temp1[i] = temp2[i];
+                for (int j = 0; j < temp1.Count() - 1; j++)
                 {
-                    int k = 1;
-                    if (j == temp[i])
+                    if (temp1[i] == temp2[j])
+                    {
+                        temp2[j] = 0;
+                    }
+                    if (temp1[j] > temp1[j + 1])
+                    {
+                        int temp = temp1[j + 1];
+                        temp1[j + 1] = temp1[j];
+                        temp1[j] = temp;
+
+                        //Console.WriteLine(temp1[i]);
+                    }
+                }
+                Console.WriteLine(temp1[i]);
+            }
+
+            for (int i = 0; i < temp1.Count(); i++)
+            {
+                if (temp1[i] == 0)
+                {
+                    continue;
+                }
+                int n = 0;
+                int count = 0;
+                for (int j = 0; j < temp1.Count(); j++)
+                {
+                    if (temp1[i] + n == temp1[j])
                     {
                         count++;
-                        continue;
+                        //Console.WriteLine("count : {0}", count);
                     }
 
-                    if ((maxValue - k) == temp[i])
-                    {
-                        count++;
-                    }
+                    //Console.WriteLine("n : {0}", temp1[i] + n);
+                    n++;
+                }
 
-                    k++;
+                if (count >= 5) // 스트레이트
+                {
+                    return true;
                 }
             }
 
-            if (count >= 5)
+            return false;
+        }
+
+        #region 7. 트리플(같은 숫자의 카드 3장)
+        #endregion
+        public static bool Three_Of_A_Kind()
+        {
+            if (Get_SameNumbers(3, 1))
             {
-                Console.WriteLine("스트레이트!");
                 return true;
             }
 
             return false;
         }
 
-        // 7. 트리플
-        // 같은 숫자의 카드 3장
-        public static bool Three_Of_A_Kind()
-        {
-            return false;
-        }
-
-        // 8. 투 페어
-        // 같은 숫자의 카드 2장의 두 쌍
+        #region 8. 투 페어(같은 숫자의 카드 2장의 두 쌍)
+        #endregion
         public static bool Two_Pair()
         {
+            if (Get_SameNumbers(2, 2))
+            {
+                return true;
+            }
+
             return false;
         }
 
-        // 9. 원 페어
-        // 같은 숫자의 카드 2장
+        #region 9. 원 페어(같은 숫자의 카드 2장)
+        #endregion
         public static bool One_Pair()
         {
+            if (Get_SameNumbers(2, 1))
+            {
+                return true;
+            }
+
             return false;
         }
 
-        // 10. 탑
-        // 아무것도 아닐 경우
+        #region 10. 탑(아무것도 아닐 경우)
+        #endregion
         public static bool High_Card()
         {
-            Console.WriteLine("탑!");
             return true;
+        }
+
+
+        #region 같은 숫자 찾기 함수
+        #endregion
+        public static bool Get_SameNumbers(int checkNumber, int checkPair)
+        {
+            int pair = 0;
+            int min = Card_Numbers.Min();
+            int max = Card_Numbers.Max();
+            for (int i = min; i < max + 1; i++)
+            {
+                int count = 0;
+                for (int j = 0; j < Card_Numbers.Count(); j++)
+                {
+                    if (Card_Numbers[j] == i)
+                    {
+                        count++;
+                    }
+                }
+                if (count >= checkNumber)
+                {
+                    pair++;
+                    if (pair >= checkPair)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
     }
