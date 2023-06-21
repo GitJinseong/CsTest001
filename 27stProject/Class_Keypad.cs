@@ -23,7 +23,7 @@ namespace _27stProject
             Set_Move(inputChar);
         }
 
-        // 이동
+        // 플레이어 이동
         public void Set_Move(char inputChar)
         {
             int x = Manager.CP.Dir_X;
@@ -87,6 +87,17 @@ namespace _27stProject
         {
             int x = Manager.CP.Dir_X;
             int y = Manager.CP.Dir_Y;
+            if (Get_CheckDefeat(x, y))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        // 패배 체크
+        public bool Get_CheckDefeat(int x, int y)
+        {
             int size = Manager.CE_List.Count();
             for (int i = 0; i < size; i++)
             {

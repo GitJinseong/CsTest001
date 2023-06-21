@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace _27stProject
@@ -12,8 +13,11 @@ namespace _27stProject
         public static Class_Map CM { get; private set; } = new Class_Map(30);
         public static Class_Keypad CK { get; private set; } = new Class_Keypad();
         public static Class_Player CP { get; private set; } = new Class_Player();
+        public static Class_Enemy_AI CEA { get; private set; } = new Class_Enemy_AI();
         public static List<Class_Wall> CW_List { get; private set; } = new List<Class_Wall>();
         public static List<Class_Enemy> CE_List { get; private set; } = new List<Class_Enemy>();
+
+        public static Random random = new Random();
         #endregion
 
         // 벽 생성
@@ -72,8 +76,12 @@ namespace _27stProject
         {
             if (CK.Get_CheckEnemy())
             {
+                CP.Life--;
+            }
+            if (CP.Life == 0)
+            {
                 Console.WriteLine("당신은 패배하였습니다!!!");
-                Task.Delay(1000000000).Wait();
+                Thread.Sleep(1000000000);
             }
         }
 

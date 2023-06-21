@@ -46,7 +46,7 @@
     <Compile Include="Class_Keypad.cs" />
     <Compile Include="Class_Map.cs" />
     <Compile Include="Class_Enemy.cs" />
-    <Compile Include="Class_MonsterAI.cs" />
+    <Compile Include="Class_Enemy_AI.cs" />
     <Compile Include="Class_Player.cs" />
     <Compile Include="IActions.cs" />
     <Compile Include="Manager.cs" />

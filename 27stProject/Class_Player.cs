@@ -11,9 +11,15 @@ namespace _27stProject
         #region 선언부
         public int Dir_X { get; set; } = default;
         public int Dir_Y { get; set; } = default;
+        public int Life { get; set; } = default;
         public int Point { get; set; } = default;
-
         #endregion
+
+        // 생성자
+        public Class_Player()
+        {
+            Life = 2;
+        }
 
         // 플레이어 점수 증가
         public void Set_AddPoint()
