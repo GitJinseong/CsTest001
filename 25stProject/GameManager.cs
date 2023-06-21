@@ -30,7 +30,10 @@ namespace _25stProject
         [DllImport("msvcrt.dll")]
         static extern char _getch();
         public int Size { get; private set; } = default;
+        public int[,] MapHistory { get; private set; } = default;
         public string[,] Map { get; private set; } = default;
+        public string[] PortalPattern { get; private set; } = default;
+        public int MapIndex { get; private set; } = default;
         public Player MyPlayer { get; private set; } = default;
         #endregion
 
@@ -46,8 +49,10 @@ namespace _25stProject
         public void Start(int size_)
         {
             Size = size_;
+            MapHistory = new int[3, 2] { {1,1}, {15,15}, {7,7} };
             Map = new string[Size, Size];
             MyPlayer = new Player(2,2);
+            PortalPattern = new string[3] {"▣", "♬", "◑"};
 
             // 커서 숨기기
             Console.CursorVisible = false;
@@ -70,6 +75,8 @@ namespace _25stProject
                 Console.Clear();
                 Set_CreateMap();
                 Get_PrintMap();
+                Console.WriteLine("x: {0}", MyPlayer.Dir_X);
+                Console.WriteLine("y: {0}", MyPlayer.Dir_Y);
                 Get_HandleInput();
                 Get_CheckPortal();
                 // 실행
@@ -176,10 +183,13 @@ namespace _25stProject
         #endregion
         public void Set_CreatePortal()
         {
-            Random random = new Random();
-            Portal.dir_X= random.Next(0, Size);
-            System.Threading.Thread.Sleep(16);
-            Portal.dir_Y= random.Next(0, Size);
+            MapIndex++;
+            if (MapIndex == 3)
+            {
+                MapIndex = 0;
+            }
+            Portal.dir_X = MapHistory[MapIndex, 1];
+            Portal.dir_Y = MapHistory[MapIndex, 0];
         }
 
         #region 맵을 생성하는 함수
@@ -194,7 +204,7 @@ namespace _25stProject
 
                     if ((x == Portal.dir_X) && (Portal.dir_Y) == y)
                     {
-                        Map[y, x] = "＠";
+                        Map[y, x] = PortalPattern[MapIndex];
                     }
 
                     if ((x == MyPlayer.Dir_X) && (MyPlayer.Dir_Y) == y)
