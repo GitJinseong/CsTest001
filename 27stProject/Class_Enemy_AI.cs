@@ -105,12 +105,12 @@ namespace _27stProject
                         cost_List.Add(j);
                     }
                 }
-                // 주변에 벽이 있을 경우
+                // 주변에 길이 있을 경우
                 if (cost_List.Count > 0)
                 {
                     Set_Moving(i, cost_List[Manager.random.Next(0, cost_List.Count)]);
                 }
-                // 주변이 전부 벽일 경우
+                // 주변 3방향 이상이 벽일 경우
                 else
                 {
                     Set_Moving(i, Manager.random.Next(0,3));

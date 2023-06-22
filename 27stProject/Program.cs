@@ -26,7 +26,7 @@ namespace _27stProject
             Manager.CP.Set_Move(5,5);
 
             // 벽 생성
-            Manager.Set_Create_Wall(150);
+            Manager.Set_Create_Wall(30);
 
             // 게임 실행
             while (true)

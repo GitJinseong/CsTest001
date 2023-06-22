@@ -1,24 +1,25 @@
-﻿using System;
+﻿using _31stProject;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _27stProject
+namespace _31stProject
 {
-    public class Class_Map
+    public class MapClass
     {
         #region 선언부
         public string[,] Map { get; private set; } = default;
         public int MapSize_X { get; private set; } = default;
         public int MapSize_Y { get; private set; } = default;
+        public List<GrassClass> GC_List { get; private set; } = new List<GrassClass>();
+        public Npc_Manager NM { get; private set; } = new Npc_Manager();
 
         #endregion
 
         // 생성자
-        public Class_Map(int size_)
+        public MapClass(int size_)
         {
             MapSize_X = size_ - 10;
             MapSize_Y = size_;
@@ -38,6 +39,20 @@ namespace _27stProject
             }
         }
 
+        // 수풀 생성
+        public void Set_CreateGrass(int count)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                int x = Center_Manager.random.Next(0, MapSize_X);
+                System.Threading.Thread.Sleep(16);
+                int y = Center_Manager.random.Next(0, MapSize_Y);
+                GrassClass grass = new GrassClass(x, y);
+                GC_List.Add(grass);
+            }
+
+        }
+
         // 맵 생성
         public void Set_CreateMap()
         {
@@ -47,34 +62,33 @@ namespace _27stProject
                 {
                     Map[y, x] = "　";
 
-                    if (x == Manager.CP.Dir_X && Manager.CP.Dir_Y == y)
+                    for (int i = 0; i < GC_List.Count; i++)
                     {
-                        Map[y, x] = "♥";
-                    }
-
-                    for (int i = 0; i < Manager.CW_List.Count; i++)
-                    {
-                        if (x == Manager.CW_List[i].Dir_X && Manager.CW_List[i].Dir_Y == y)
+                        if (x == GC_List[i].Dir_X && GC_List[i].Dir_Y == y)
                         {
-                            Map[y, x] = "▣";
+                            Map[y, x] = "※";
                         }
 
                     }
-
-                    for (int i = 0; i < Manager.CE_List.Count; i++)
+                    for (int i = 0; i < 1; i++)
                     {
-                        if (x == Manager.CE_List[i].Dir_X && Manager.CE_List[i].Dir_Y == y)
+                        if (x == NM.npc.Dir_X && NM.npc.Dir_Y == y)
                         {
-                            Map[y, x] = "ⓔ";
+                            Map[y, x] = "ⓝ";
                         }
-
                     }
+                    if (x == Center_Manager.PC.Dir_X && Center_Manager.PC.Dir_Y == y)
+                    {
+                        Map[y, x] = "★";
+                    }
+
                 }
 
             }
 
         }
 
-        
     }
+
 }
+
