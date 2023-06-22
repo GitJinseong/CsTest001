@@ -24,10 +24,10 @@ namespace _31stProject
         // 생성자
         public PlayerClass()
         {
-            Hp = 250;
-            MaxHP = 250;
-            Atk = 10;
-            Def = 2;
+            Hp = 450;
+            MaxHP = 450;
+            Atk = 20;
+            Def = 10;
         }
 
         // 부활
@@ -56,7 +56,7 @@ namespace _31stProject
                     return;
                 }
             }
-
+ 
             EnemyKill_Dictionary.Add(name, 1);
             Console.WriteLine("잡은 몬스터: {0}, 마릿수: {1}", name, EnemyKill_Dictionary[name]);
         }

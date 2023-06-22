@@ -51,7 +51,6 @@
     <Compile Include="Manager\Map_Manager.cs" />
     <Compile Include="Manager\Npc_Manager.cs" />
     <Compile Include="Parent\EnemyClass.cs" />
-    <Compile Include="Class\KeypadClass.cs" />
     <Compile Include="Interface\IDialogue.cs" />
     <Compile Include="Interface\IActions.cs" />
     <Compile Include="Manager\Center_Manager.cs" />

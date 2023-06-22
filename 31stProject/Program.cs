@@ -12,17 +12,15 @@ namespace _31stProject
     {
         static void Main(string[] args)
         {
+            // 객체 생성
+            TileClass tile = new TileClass();
+            BattleClass battle = new BattleClass();
+
             // 매니저 생성
             Map_Manager MM = new Map_Manager();
             Enemy_Manager EM = new Enemy_Manager();
 
-            // 객체 생성
-            TileClass tile = new TileClass();
-            BattleClass battle = new BattleClass();
-            KeypadClass keypad = new KeypadClass();
-
             // 링크 연결
-            keypad.Get_Link(MM);
             tile.Get_Link(MM.List[0]);
             battle.Get_Link_Map(MM.List[0]);
             battle.Get_Link_EM(EM);
@@ -54,7 +52,7 @@ namespace _31stProject
                 // 게임 출력
                 MM.List[0].Set_CreateMap();
                 MM.List[0].Get_PrintMap();
-                keypad.Get_Input();
+                Center_Manager.Get_Input(MM.List[0].MapSize_X, MM.List[0].MapSize_Y);
                 battle.Get_StartBattle(tile.Get_CheckGrass(player.Dir_X, player.Dir_Y));
 
                 // npc와 접촉할 경우
