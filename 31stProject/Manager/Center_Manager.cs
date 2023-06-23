@@ -18,7 +18,7 @@ namespace _31stProject
         public static Random random = new Random();
         #endregion
 
-
+        
         // 입력
         public static char Get_Input()
         {
